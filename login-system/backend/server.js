@@ -2,14 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
+const cors = require('cors');
+// const User = require('./models/user');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
+// MongoDB connection
+const dbURI = 'mongodb://localhost:27017/login_system';
+mongoose.connect(dbURI)
+    .then(() => console.log('MongoDB connected...'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/login_system', { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => console.log('MongoDB connected...'))
-.catch(err => console.log(err));
 // User schema
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
@@ -19,8 +23,10 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+
+
 // Register endpoint
-app.post('/auth/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
 
     if (password !== confirmPassword) {
@@ -44,7 +50,7 @@ app.post('/auth/register', async (req, res) => {
 });
 
 // Login endpoint
-app.post('/auth/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {

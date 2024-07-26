@@ -7,7 +7,7 @@ document.getElementById('signInForm').addEventListener('submit', async function(
     const errorElement = document.getElementById('error');
 
     try {
-        const response = await fetch('http://localhost:3000/auth/login', {
+        const response = await fetch('http://localhost:3000/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

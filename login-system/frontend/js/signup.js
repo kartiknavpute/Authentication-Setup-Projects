@@ -16,7 +16,7 @@ document.getElementById('signUpForm').addEventListener('submit', async function(
     }
 
     try {
-        const response = await fetch('http://localhost:3000/auth/register', {
+        const response = await fetch('http://localhost:3000/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ document.getElementById('signUpForm').addEventListener('submit', async function(
             throw new Error(await response.text());
         }
 
-        window.location.href = 'welcome.html';
+        window.location.href = 'signin.html';
     } catch (err) {
         errorElement.textContent = err.message;
     }
