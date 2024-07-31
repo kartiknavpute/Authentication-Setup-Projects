@@ -19,6 +19,11 @@ document.getElementById('signInForm').addEventListener('submit', async function(
             throw new Error(await response.text());
         }
 
+        // const data = await response.json();
+        // console.log('Login response:', data); // Log the response to verify it contains the token
+
+        // localStorage.setItem('token', data.token); // Store the token in localStorage
+        // alert('Login successful!');
         window.location.href = 'dashboard.html';
     } catch (err) {
         errorElement.textContent = err.message;
